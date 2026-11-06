@@ -26,8 +26,9 @@ every step of the workflow can be verified against known ground truth.
   decides *how fast*. Global (Sobol) sensitivity confirms this numerically
   (first-order index of Q on tissue AUC ≈ 0.02).
 - **The counterfactual answer is only as reliable as the data that constrain
-  the parameters it depends on.** Removing early samples makes Q uncertain but
-  leaves the answer unchanged, because the answer does not depend on Q.
+  the parameters it depends on.** Removing early samples makes Q six times more
+  uncertain but leaves the answer unchanged, because the answer does not
+  depend on Q.
   Observing blood only makes K<sub>p</sub> indirectly constrained and roughly
   doubles the uncertainty on the required intervention.
 
@@ -178,9 +179,10 @@ refitting the model on poorer experimental designs:
 ![Counterfactual](figures/counterfactual.png)
 
 - Whether the particle is problematic is clear in every design.
-- Dropping early samples leaves $Q$ poorly constrained, but the counterfactual
-  is unaffected, because tissue AUC does not depend on $Q$. Losing information
-  matters only for the parameters a decision depends on.
+- Dropping early samples widens the 94% interval of $Q$ about six-fold
+  (from [4.4, 5.9] to [3.2, 12.8]), yet the counterfactual is unchanged,
+  because tissue AUC does not depend on $Q$. Losing information matters only
+  for the parameters a decision depends on.
 - With blood-only data, $K_p$ is constrained only indirectly and the required
   intervention becomes roughly twice as uncertain, with a long tail for
   clearance. The posterior flags this by itself: a wide distribution of
