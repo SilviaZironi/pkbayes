@@ -1,0 +1,17 @@
+name: pkbayes
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pymc>=6
+  - arviz>=1
+  - numpy
+  - scipy
+  - matplotlib
+  - xarray
+  - h5netcdf
+  - salib
+  - pytest
+  - pip
+  - pip:
+      - -e .
