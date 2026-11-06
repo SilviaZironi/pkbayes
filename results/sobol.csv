@@ -1,0 +1,7 @@
+output,parameter,S1,ST
+Tissue AUC (0-48 h),Q,0.018,0.026
+Tissue AUC (0-48 h),CL,0.509,0.515
+Tissue AUC (0-48 h),Kp,0.461,0.474
+Tissue Cmax,Q,0.350,0.387
+Tissue Cmax,CL,0.351,0.386
+Tissue Cmax,Kp,0.258,0.269
