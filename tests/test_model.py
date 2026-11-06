@@ -16,3 +16,17 @@ def test_equilibrium_without_clearance():
     C_b_fine = out[-1,0]
     C_t_fine = out[-1,1]
     assert np.isclose(C_t_fine / C_b_fine, params["Kp"], rtol=1e-6)
+
+from pkbayes.model import analytic_solution
+
+
+def test_analytic_matches_numerical():
+    params = {"Q": 5.0, "CL": 1.0, "Kp": 3.0, "V_b": 5.0, "V_t": 10.0}
+    dose = 100.0
+    t = np.linspace(0, 48, 200)
+
+    numerical = simulate(params, dose, t)
+    C_b, C_t = analytic_solution(t, dose=dose, **params)
+
+    assert np.allclose(C_b, numerical[:, 0], rtol=1e-6, atol=1e-9)
+    assert np.allclose(C_t, numerical[:, 1], rtol=1e-6, atol=1e-9)
