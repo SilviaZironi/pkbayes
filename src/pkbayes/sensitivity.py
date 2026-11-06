@@ -13,7 +13,7 @@ def tissue_exposure(Q, CL, Kp, V_b, V_t, dose, t):
     Q, CL, Kp can be arrays of N parameter sets: the closed-form solution
     is evaluated for all of them at once (shape (N, len(t))).
     """
-    Q, CL, Kp = (np.asarray(x, dtype=float)[..., None] for x in (Q, CL, Kp))
+    Q, CL, Kp = (np.atleast_1d(np.asarray(x, dtype=float))[:, None] for x in (Q, CL, Kp))
     _, C_t = analytic_solution(t, Q, CL, Kp, V_b, V_t, dose)
     auc = np.trapezoid(C_t, t, axis=-1)
     cmax = C_t.max(axis=-1)

@@ -19,13 +19,19 @@ def load_data(data_dir):
     return t_obs, obs, truth
 
 
-def build_model(t_obs, obs, dose, V_b, V_t):
+COMPARTMENTS = ("blood", "tissue")
+
+
+def build_model(t_obs, obs, dose, V_b, V_t, compartments=COMPARTMENTS):
     """PyMC model: log-normal likelihood around the closed-form solution.
 
     Unknown: Q, CL, Kp (physiology/particle) and sigma (measurement noise).
     Known:   dose and compartment volumes (set by the experimental device).
+    `compartments` selects which columns of `obs` are observed, e.g.
+    ("blood",) for a design where only blood is sampled.
     """
-    coords = {"time": t_obs, "compartment": ["blood", "tissue"]}
+    obs = np.asarray(obs, dtype=float).reshape(len(t_obs), len(compartments))
+    coords = {"time": t_obs, "compartment": list(compartments)}
     with pm.Model(coords=coords) as model:
         # Weakly informative priors: positive, median at a plausible order of
         # magnitude, ~95% of mass within a factor ~7 of the median.
@@ -35,7 +41,8 @@ def build_model(t_obs, obs, dose, V_b, V_t):
         sigma = pm.HalfNormal("sigma", sigma=0.5)
 
         C_b, C_t = analytic_solution(t_obs, Q, CL, Kp, V_b, V_t, dose, lib=pm.math)
-        log_pred = pm.math.log(pm.math.stack([C_b, C_t], axis=1))
+        pred = {"blood": C_b, "tissue": C_t}
+        log_pred = pm.math.log(pm.math.stack([pred[c] for c in compartments], axis=1))
 
         pm.Normal(
             "log_obs",

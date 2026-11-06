@@ -28,3 +28,15 @@ def test_local_sensitivity_blood_initial_value():
     S = local_sensitivity(PARAMS, DOSE, np.array([1e-6]))
     for name in ["Q", "CL", "Kp"]:
         assert abs(S[name][0][0]) < 1e-3
+
+from pkbayes.sensitivity import tissue_exposure
+
+
+def test_tissue_exposure_scalar_and_array_inputs_agree():
+    t = np.linspace(0, 48, 481)
+    p = PARAMS
+    auc_s, cmax_s = tissue_exposure(p["Q"], p["CL"], p["Kp"], p["V_b"], p["V_t"], DOSE, t)
+    auc_a, cmax_a = tissue_exposure([p["Q"]] * 3, [p["CL"]] * 3, [p["Kp"]] * 3,
+                                    p["V_b"], p["V_t"], DOSE, t)
+    assert auc_s.shape == (1,) and auc_a.shape == (3,)
+    assert np.allclose(auc_a, auc_s[0]) and np.allclose(cmax_a, cmax_s[0])
