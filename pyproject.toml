@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pkbayes"
 version = "0.1.0"
 requires-python = ">=3.10"
-dependencies = ["numpy", "scipy", "matplotlib", "pymc", "arviz"]
+dependencies = ["numpy", "scipy", "matplotlib", "pymc>=6", "arviz>=1", "xarray", "h5netcdf", "SALib"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
