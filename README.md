@@ -4,10 +4,10 @@ A small, fully tested Python project that builds a mechanistic ODE model of
 transport between blood and a tissue, calibrates it with Bayesian inference in
 **PyMC**, and uses the posterior to answer two questions:
 
-1. **Which parameters decide how much reaches the tissue?** (sensitivity analysis)
+1. **Which parameters decide how much reaches the tissue?** (Sensitivity analysis)
 2. **For a particle whose tissue exposure is too high, what is the smallest
-   change that would fix it — and when should that answer not be trusted?**
-   (counterfactual analysis under posterior uncertainty)
+   change that would fix it and when should that answer not be trusted?**
+   (Counterfactual analysis under posterior uncertainty)
 
 The model is deliberately minimal (two compartments, synthetic data) so that
 every step of the workflow can be verified against known ground truth.
