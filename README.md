@@ -1,4 +1,5 @@
 # pkbayes — Bayesian calibration, sensitivity and counterfactuals for a two-compartment transport model
+[![tests](https://github.com/SilviaZironi/pkbayes/actions/workflows/tests.yml/badge.svg)](https://github.com/SilviaZironi/pkbayes/actions/workflows/tests.yml)
 
 A small, fully tested Python project that builds a mechanistic ODE model of
 transport between blood and a tissue, calibrates it with Bayesian inference in
@@ -252,3 +253,7 @@ The tests check physics and numerics, not only that the code runs:
 Silvia Zironi — MSc in Nuclear and Subnuclear Physics (University of Bologna),
 with a thesis on Bayesian inference and sensitivity analysis for the nuclear
 three-body problem.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
